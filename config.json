@@ -1,0 +1,5 @@
+{
+    "bot_token" : "token",
+    "prefix" : "?",
+    "admin_id" : "your_id"
+}
