@@ -11,7 +11,7 @@
   "devDependencies": {},
   "scripts": {
     "test": "echo \"ERROR\" && exit 1",
-    "start": "node selfbot.js"
+    "start": "node warnbot.js"
   },
   "keywords": [
     "warn",
