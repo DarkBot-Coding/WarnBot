@@ -1,23 +1,23 @@
 <?php
-/*
+
 header("Cache-Control: no-store, no-cache, must-revalidate, max-age=0");
 header("Cache-Control: post-check=0, pre-check=0", false);
 header("Pragma: no-cache");
-$servername = "localhost";
+/*$servername = "localhost";
 $username = "root";
 $password = "";
 $dbname = "warnbot";
 
 // Create connection
 $conn = new mysqli($servername, $username, $password, $dbname);
-?>
+?>*/
 <form method="POST" action="">
   <input type="text" id='ID' name='ID'>
   <input type="submit">
 </form>
 <?php
 if(isset($_POST['ID'])) {
-  $DiscordID = $_POST["ID"];
+  /*$DiscordID = $_POST["ID"];
   $DiscordID = mysqli_real_escape_string($conn,$DiscordID);
   $sqlQuery = "SELECT id, user, discord_id, reason, serverName FROM warns WHERE discord_id = '$DiscordID'";
   $result = $conn->query($sqlQuery);
@@ -28,9 +28,9 @@ if(isset($_POST['ID'])) {
        }
   } else {
        echo "0 results";
-  }
+  }*/
 }
-*/
+
 ?>
 <html>
 <head>
