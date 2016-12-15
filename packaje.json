@@ -1,0 +1,26 @@
+{
+  "name": "WarnBot",
+  "version": "0.0.2",
+  "description": "Bot that warns people",
+  "main": "warnbot.js",
+  "dependencies": {
+    "discord.js": "*",
+    "performance-now": "^0.2.0",
+    "mysql": "*"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"ERROR\" && exit 1",
+    "start": "node selfbot.js"
+  },
+  "keywords": [
+    "warn",
+    "warnbot"
+  ],
+  "author": "DarkN-exus, yannou38",
+  "license": "MIT",
+
+  "engines": {
+    "node": "6.7.0"
+  }
+}
