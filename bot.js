@@ -18,17 +18,23 @@ connection.connect();
 
 //Commands
 const commands = {
+
+	/*warn : warn mentionned user on actual server with optionnal reason
+	* Arguments : name of the user to warn, (optionnal) reason
+	* TODO : only mods or higher should be allowed to warn . do nothing if someone try to warn not a mod or higher
+	* TODO : if silent, delete command as soon as bot detect it
+	*/
 	'warn': (message) => {
 		const mentionedUser = message.mentions.users.first();
 		let  args = message.content.split(mentionedUser).slice(1);
-		message.reply("Warned " + message.mentions.users.first() + ".\nHis ID is: " + message.mentions.users.first().id + " you can use this on the bot's website to check if the user has any warns")
+		message.reply("Warned " + mentionedUser + ".\nHis ID is: " + mentionedUser.id + " you can use this on the bot's website to check if the user has any warns")
 		mentionedUser.sendMessage("You got warned by Warnbot \nOn server " + message.guild.name + " by " + message.author.username + "\nReason : " + args.join(" "))
 		console.log('[C] ' + message.author.username + ' Warned ' + message.mentions.users.first() + ' On ' + message.guild.name)
 		var warn = {
 			"user": "" + message.author.username + "",
 			"discord_id": "" + message.mentions.users.first().id + "",
 			"reason": "" + args.join(" ") + "",
-      			"serverName": "" + message.guild.name + "",
+			"serverName": "" + message.guild.name + "",
 		}
 
 		connection.query("INSERT INTO warns SET ?", warn, function(error) {
@@ -37,7 +43,10 @@ const commands = {
 				return;
 			}
 		})
+		//shoud look like this (not sure) if silent
+		//message.delete();
 	},
+
 	'eval': (message) => {
 		if(!message.author.id === config.admin_id) return;
 		let  args = message.content.split(" ").slice(1);
@@ -61,6 +70,29 @@ const commands = {
 		} catch(err) {
 			message.channel.sendMessage(`\`ERROR\` \`\`\`xl\n${clean(err)}\n\`\`\``);
 		}
+	},
+	/*checkwarnings : return the list of warnings of mentionned user on actual server (where this command is executed)
+	* Arguments : name of the user to check
+	* TODO : no argument = check myself.
+	* TODO : only mods or higher should be allowed to watch other user warnings. do nothing if someone try to see warning of another and not a mod or higher
+	* TODO : if silent, delete command as soon as bot detect it
+	*/
+	'checkwarning': (message) => {		
+		const mentionedUser = message.mentions.users.first();
+		var queryargs = {
+			"discord_id": "" + mentionedUser + "",
+			"serverName": "" + message.guild.name + "",
+		}
+		connection.query("SELECT FROM warns WHERE ?", queryargs,function(error, rows, fields) {
+			if (error) {
+				console.log(error);
+				return;
+			}
+			mentionedUser.sendMessage("Warnings on server "+ message.guild.name +" : "+rows.length)
+			for (var i in rows) {
+				mentionedUser.sendMessage(rows[i].post_title);
+			}
+		})
 	}
 };
 
