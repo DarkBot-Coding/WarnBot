@@ -22,7 +22,7 @@ const commands = {
 		const mentionedUser = message.mentions.users.first();
 		let  args = message.content.split(mentionedUser).slice(1);
 		message.reply("Warned " + message.mentions.users.first() + ".\nHis ID is: " + message.mentions.users.first().id + " you can use this on the bot's website to check if the user has any warns")
-		mentionedUser.sendMessage("You got warned by Warnbot \n On server " + message.guild.name + " by " + message.author.username + "\nReason : \n" + args.join(" "))
+		mentionedUser.sendMessage("You got warned by Warnbot \nOn server " + message.guild.name + " by " + message.author.username + "\nReason : " + args.join(" "))
 		console.log('[C] ' + message.author.username + ' Warned ' + message.mentions.users.first() + ' On ' + message.guild.name)
 		var warn = {
 			"user": "" + message.author.username + "",
