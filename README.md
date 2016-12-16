@@ -1,5 +1,5 @@
 # WarnBot
-Discord bot, Warns people
+Discord bot that warn people
 
-
-After this project being dead, i will try to work on it
+Bot coded by yannou38 and darkNexus
+Dashboard by paulB

@@ -34,6 +34,11 @@ CREATE TABLE `warns` (
   `serverID` varchar(250) CHARACTER SET latin1 NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
+CREATE TABLE `mods` (
+  `discord_id` varchar(250) CHARACTER SET latin1 NOT NULL,
+  `serverID` varchar(250) CHARACTER SET latin1 NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+
 --
 -- Indexes for dumped tables
 --
@@ -43,6 +48,12 @@ CREATE TABLE `warns` (
 --
 ALTER TABLE `warns`
   ADD PRIMARY KEY (`ID`);
+
+--
+-- Indexes for table `mods`
+--
+ALTER TABLE `mods`
+  ADD PRIMARY KEY (`discord_id`,`serverID`);
 
 --
 -- AUTO_INCREMENT for dumped tables

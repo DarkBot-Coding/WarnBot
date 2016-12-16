@@ -25,24 +25,50 @@ const commands = {
 	* TODO : if silent, delete command as soon as bot detect it
 	*/
 	'warn': (message) => {
-		const mentionedUser = message.mentions.users.first();
-		let  args = message.content.split(mentionedUser).slice(1);
-		message.reply("Warned " + mentionedUser + ".\nHis ID is: " + mentionedUser.id + " you can use this on the bot's website to check if the user has any warns")
-		mentionedUser.sendMessage("You got warned by Warnbot \nOn server " + message.guild.name + " by " + message.author.username + "\nReason : " + args.join(" "))
-		console.log('[C] ' + message.author.username + ' Warned ' + message.mentions.users.first() + ' On ' + message.guild.name)
-		var warn = {
-			"user": "" + message.author.id + "",
-			"discord_id": "" + message.mentions.users.first().id + "",
-			"reason": "" + args.join(" ") + "",
-			"serverID": "" + message.guild.id + "",
-		}
 
-		connection.query("INSERT INTO warns SET ?", warn, function(error) {
-			if (error) {
-				console.log(error);
-				return;
+
+		var canUserexecute = false;
+		if (message.author.hasPermission("ADMINISTRATOR")) {
+			canUserexecute = true;
+		}else{
+			var args = {
+				"user": "" + message.author.id + "",
+				"serverID": "" + message.guild.id + "",
 			}
-		})
+			connection.query("SELECT FROM mods WHERE ?", args,function(error, rows, fields) {
+				if (error) {
+					console.log(error);
+					return;
+				}
+				if (rows.length > 0) {
+					canUserexecute = true;
+				}
+			})
+		}
+		
+
+		if (canUserexecute) {
+			const mentionedUser = message.mentions.users.first();
+			let  args = message.content.split(mentionedUser).slice(1);
+			message.reply("Warned " + mentionedUser + ".\nHis ID is: " + mentionedUser.id + " you can use this on the bot's website to check if the user has any warns")
+			mentionedUser.sendMessage("You got warned by Warnbot \nOn server " + message.guild.name + " by " + message.author.username + "\nReason : " + args.join(" "))
+			console.log('[C] ' + message.author.username + ' Warned ' + message.mentions.users.first() + ' On ' + message.guild.name)
+			var queryargs = {
+				"user": "" + message.author.id + "",
+				"discord_id": "" + message.mentions.users.first().id + "",
+				"reason": "" + args.join(" ") + "",
+				"serverID": "" + message.guild.id + "",
+			}
+
+			connection.query("INSERT INTO warns SET ?", warn, function(error) {
+				if (error) {
+					console.log(error);
+					return;
+				}
+			})
+		}
+	}
+
 		//shoud look like this (not sure) if silent
 		//message.delete();
 	},
@@ -77,23 +103,47 @@ const commands = {
 	* TODO : only mods or higher should be allowed to watch other user warnings. do nothing if someone try to see warning of another and not a mod or higher
 	* TODO : if silent, delete command as soon as bot detect it
 	*/
-	'checkwarning': (message) => {		
-		const mentionedUser = message.mentions.users.first();
-		var queryargs = {
-			"discord_id": "" + mentionedUser.id + "",
-			"serverID": "" + message.guild.id + "",
+	'checkwarning': (message) => {	
+
+		var canUserexecute = false;
+		if (message.author.hasPermission("ADMINISTRATOR")) {
+			canUserexecute = true;
+		}else{
+			var args = {
+				"user": "" + message.author.id + "",
+				"serverID": "" + message.guild.id + "",
+			}
+			connection.query("SELECT FROM mods WHERE ?", args,function(error, rows, fields) {
+				if (error) {
+					console.log(error);
+					return;
+				}
+				if (rows.length > 0) {
+					canUserexecute = true;
+				}
+			})
 		}
-		connection.query("SELECT FROM warns WHERE ?", queryargs,function(error, rows, fields) {
-			if (error) {
-				console.log(error);
-				return;
+		
+
+		if (canUserexecute) {
+			const mentionedUser = message.mentions.users.first();
+			var queryargs = {
+				"discord_id": "" + mentionedUser.id + "",
+				"serverID": "" + message.guild.id + "",
 			}
-			mentionedUser.sendMessage("Warnings on server "+ message.guild.name +" : "+rows.length)
-			for (var i in rows) {
-				mentionedUser.sendMessage(rows[i].post_title);
-			}
-		})
+			connection.query("SELECT FROM warns WHERE ?", queryargs,function(error, rows, fields) {
+				if (error) {
+					console.log(error);
+					return;
+				}
+				mentionedUser.sendMessage("Warnings on server "+ message.guild.name +" : "+rows.length)
+				for (var i in rows) {
+					mentionedUser.sendMessage(rows[i].post_title);
+				}
+			})
+		};
 	}
+	
 };
 
 bot.on("message", message => {
