@@ -17,7 +17,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `testt`
+-- Database: `warnbot`
 --
 
 -- --------------------------------------------------------
@@ -31,7 +31,7 @@ CREATE TABLE `warns` (
   `user` varchar(250) CHARACTER SET latin1 NOT NULL,
   `discord_id` varchar(250) CHARACTER SET latin1 NOT NULL,
   `reason` text CHARACTER SET latin1 NOT NULL,
-  `serverName` text CHARACTER SET latin1 NOT NULL
+  `serverID` varchar(250) CHARACTER SET latin1 NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 --
@@ -52,7 +52,7 @@ ALTER TABLE `warns`
 -- AUTO_INCREMENT for table `warns`
 --
 ALTER TABLE `warns`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=0;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
