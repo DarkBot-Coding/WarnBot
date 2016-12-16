@@ -31,10 +31,10 @@ const commands = {
 		mentionedUser.sendMessage("You got warned by Warnbot \nOn server " + message.guild.name + " by " + message.author.username + "\nReason : " + args.join(" "))
 		console.log('[C] ' + message.author.username + ' Warned ' + message.mentions.users.first() + ' On ' + message.guild.name)
 		var warn = {
-			"user": "" + message.author.username + "",
+			"user": "" + message.author.id + "",
 			"discord_id": "" + message.mentions.users.first().id + "",
 			"reason": "" + args.join(" ") + "",
-			"serverName": "" + message.guild.name + "",
+			"serverName": "" + message.guild.id + "",
 		}
 
 		connection.query("INSERT INTO warns SET ?", warn, function(error) {
@@ -80,8 +80,8 @@ const commands = {
 	'checkwarning': (message) => {		
 		const mentionedUser = message.mentions.users.first();
 		var queryargs = {
-			"discord_id": "" + mentionedUser + "",
-			"serverName": "" + message.guild.name + "",
+			"discord_id": "" + mentionedUser.id + "",
+			"serverName": "" + message.guild.id + "",
 		}
 		connection.query("SELECT FROM warns WHERE ?", queryargs,function(error, rows, fields) {
 			if (error) {
