@@ -34,7 +34,7 @@ const commands = {
 			"user": "" + message.author.id + "",
 			"discord_id": "" + message.mentions.users.first().id + "",
 			"reason": "" + args.join(" ") + "",
-			"serverName": "" + message.guild.id + "",
+			"serverID": "" + message.guild.id + "",
 		}
 
 		connection.query("INSERT INTO warns SET ?", warn, function(error) {
@@ -81,7 +81,7 @@ const commands = {
 		const mentionedUser = message.mentions.users.first();
 		var queryargs = {
 			"discord_id": "" + mentionedUser.id + "",
-			"serverName": "" + message.guild.id + "",
+			"serverID": "" + message.guild.id + "",
 		}
 		connection.query("SELECT FROM warns WHERE ?", queryargs,function(error, rows, fields) {
 			if (error) {
