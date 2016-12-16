@@ -28,7 +28,7 @@ const commands = {
 
 
 		var canUserexecute = false;
-		if (message.author.hasPermission("ADMINISTRATOR")) {
+		if (message.member.roles.filter(r=>r.hasPermission('ADMINISTRATOR')).size > 0) {
 			canUserexecute = true;
 		}else{
 			var args = {
@@ -106,7 +106,7 @@ const commands = {
 	'checkwarning': (message) => {	
 
 		var canUserexecute = false;
-		if (message.author.hasPermission("ADMINISTRATOR")) {
+		if (message.member.roles.filter(r=>r.hasPermission('ADMINISTRATOR')).size > 0) {
 			canUserexecute = true;
 		}else{
 			var args = {
