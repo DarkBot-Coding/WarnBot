@@ -32,7 +32,7 @@ const commands = {
 			canUserexecute = true;
 		}else{
 			var args = {
-				"user": "" + message.author.id + "",
+				"discord_id": "" + message.author.id + "",
 				"serverID": "" + message.guild.id + "",
 			}
 			connection.query("SELECT FROM mods WHERE ?", args,function(error, rows, fields) {
@@ -60,7 +60,7 @@ const commands = {
 				"serverID": "" + message.guild.id + "",
 			}
 
-			connection.query("INSERT INTO warns SET ?", warn, function(error) {
+			connection.query("INSERT INTO warns SET ?", queryargs, function(error) {
 				if (error) {
 					console.log(error);
 					return;
@@ -110,7 +110,7 @@ const commands = {
 			canUserexecute = true;
 		}else{
 			var args = {
-				"user": "" + message.author.id + "",
+				"discord_id": "" + message.author.id + "",
 				"serverID": "" + message.guild.id + "",
 			}
 			connection.query("SELECT FROM mods WHERE ?", args,function(error, rows, fields) {
